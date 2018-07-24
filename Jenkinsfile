@@ -6,6 +6,7 @@ pipeline {
         stage('Pre-before') {
           steps {
             echo 'oui'
+            echo 'ouiiii'
           }
         }
         stage('Before') {
