@@ -2,34 +2,18 @@ pipeline {
   agent any
   stages {
     stage('Pre-before') {
-      parallel {
-        stage('Pre-before') {
-          steps {
-            echo 'oui'
-          }
-        }
-        stage('error') {
-          agent {
-            node {
-              label 'ansible'
-            }
+      steps {
+        sh '''#!/bin/bash
+# Cidr Block
+# Subnet Name
 
-          }
-          steps {
-            sleep 2
-            sleep 1
-          }
-        }
-        stage('error') {
-          steps {
-            echo 'ddd'
-          }
-        }
-        stage('error') {
-          steps {
-            echo 'ccc'
-          }
-        }
+subnet=$(aws ec2 describe-subnets --filters "Name=cidrBlock,Values=$1" "Name=tag:Name,Values=$2" --query "Subnets[0]")
+
+if [ "$subnet" = "null" ]; then
+        exit 1
+fi
+
+exit 0'''
       }
     }
     stage('Before') {
