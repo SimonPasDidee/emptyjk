@@ -8,17 +8,24 @@ pipeline {
             echo 'oui'
           }
         }
-        stage('') {
+        stage('error') {
+          agent {
+            node {
+              label 'ansible'
+            }
+
+          }
           steps {
+            sleep 2
             sleep 1
           }
         }
-        stage('') {
+        stage('error') {
           steps {
             echo 'ddd'
           }
         }
-        stage('') {
+        stage('error') {
           steps {
             echo 'ccc'
           }
